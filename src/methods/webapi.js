@@ -13,13 +13,15 @@ const getloginuser = function (user) {
         //     })
 
         let res = {
-            state: false,
-            message: '發生不明錯誤',
-            loginuser: {
-                userid: user.studno,
-                username: '顏大鈞',
-                key: '1234567'
-            }
+            data:{
+                state: false,
+                message: '發生不明錯誤',
+                loginuser: {
+                    userid: user.studno,
+                    username: '顏大鈞',
+                    key: '1234567'
+                }
+            } 
         }
         resolve(res);
     })
