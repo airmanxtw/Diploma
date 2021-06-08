@@ -7,7 +7,10 @@ const store = new Vuex.Store({
     loginuser: {
       userid: '',
       username: '',
-      key: ''
+      key: '',
+      reserve: false,
+      reserveday: '',
+      reservenumber: null
     }
   },
   getters: {
