@@ -27,7 +27,7 @@
             type="password"
           ></v-text-field>
         </v-form>
-        <v-snackbar v-model="snackbar">snackbar</v-snackbar>
+        <v-snackbar absolute v-model="snackbar">snackbar</v-snackbar>
       </v-card-text>
 
       <v-divider></v-divider>
