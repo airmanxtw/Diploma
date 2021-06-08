@@ -3,7 +3,7 @@
     <v-app-bar app>
       <v-toolbar-title>南臺科技大學畢業證書預約</v-toolbar-title>
       <v-spacer></v-spacer>
-      <span>未登入</span>
+      <span>{{ username }}</span>
     </v-app-bar>
     <v-main>
       <v-row>
@@ -21,7 +21,11 @@
 </template>
 <script>
 import loginbutton from "component/loginbutton.vue";
+import { mapGetters } from "vuex";
 export default {
+  computed: {
+    ...mapGetters(["username"]),
+  },
   components: {
     loginbutton,
   },

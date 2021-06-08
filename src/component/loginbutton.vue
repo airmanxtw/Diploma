@@ -62,11 +62,9 @@ export default {
     ...mapMutations(["setloginuser"]),
     login: function () {
       if (this.valid) {
-        //let that=this;
-
         getloginuser(this.user).then((res) => {
-          if (res.state) {
-            this.setloginuser(res.loginuser);
+          if (res.data.state) {
+            this.setloginuser(res.data.loginuser);
             this.dialog = false;
           } else {
             this.snackbar = true;
