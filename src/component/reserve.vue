@@ -4,10 +4,10 @@
     <v-card-text>
       <div v-if="reserve">
         <p>
-          您己完成預約，預約編號：{{ loginuser.reservenumber }}<br />
-          預約時段：{{ loginuser.reserveday }}
+          您己完成預約，預約編號：{{ reservenumber }}<br />
+          預約時段：{{ reserveday }}
         </p>
-        <v-btn>取消預約</v-btn>
+        <v-btn class="mb-7" @click="clearreserve">取消預約</v-btn>
       </div>
       <div v-else>
         <v-form ref="form" v-model="valid">
@@ -29,24 +29,24 @@
           ></v-select>
 
           <v-btn class="mb-7" @click="addreserve">預約</v-btn>
-
-          <v-snackbar bottom absolute v-model="snackbar" color="red text--white"
-            >{{ message }}
-            <template v-slot:action="{ attrs }">
-              <v-btn color="text--white" text v-bind="attrs" @click="snackbar = false">
-                關閉
-              </v-btn>
-            </template>
-          </v-snackbar>
         </v-form>
       </div>
     </v-card-text>
-    <v-card-actions> </v-card-actions>
+    <v-card-actions>
+      <v-snackbar bottom absolute v-model="snackbar" color="red text--white"
+        >{{ message }}
+        <template v-slot:action="{ attrs }">
+          <v-btn color="text--white" text v-bind="attrs" @click="snackbar = false">
+            關閉
+          </v-btn>
+        </template>
+      </v-snackbar>
+    </v-card-actions>
   </v-card>
 </template>
 <script>
-import { mapGetters } from "vuex";
-import { getdays, getregions, addreserve } from "methods/webapi";
+import { mapGetters, mapMutations } from "vuex";
+import { getdays, getregions, addreserve, clearreserve } from "methods/webapi";
 export default {
   data: () => {
     return {
@@ -62,7 +62,14 @@ export default {
     };
   },
   computed: {
-    ...mapGetters(["reserve", "islogin", "loginuser", "canloaddays"]),
+    ...mapGetters([
+      "reserve",
+      "islogin",
+      "loginuser",
+      "reserveday",
+      "reservenumber",
+      "canloaddays",
+    ]),
   },
   watch: {
     canloaddays: function (newval, oldval) {
@@ -80,12 +87,18 @@ export default {
     },
   },
   methods: {
+    ...mapMutations(["setreserve"]),
     addreserve: function () {
       this.$refs.form.validate();
       if (this.valid) {
         addreserve(this.loginuser.key, this.selectdays, this.selectregions).then(
           (res) => {
             if (res.data.state) {
+              this.setreserve({
+                reserve: res.data.reserve,
+                reserveday: res.data.reserveday,
+                reservenumber: res.data.reservenumber,
+              });
             } else {
               this.snackbar = true;
               this.message = res.data.message;
@@ -93,6 +106,20 @@ export default {
           }
         );
       }
+    },
+    clearreserve: function () {
+      clearreserve(this.loginuser.key).then((res) => {
+        if (res.data.state) {
+          this.setreserve({
+            reserve: res.data.reserve,
+            reserveday: res.data.reserveday,
+            reservenumber: res.data.reservenumber,
+          });
+        } else {
+          this.snackbar = true;
+          this.message = res.data.message;
+        }
+      });
     },
   },
 };

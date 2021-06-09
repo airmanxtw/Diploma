@@ -96,9 +96,9 @@ const addreserve = function (key, day, region) {
 
         let res = {
             data: {
-                state: false,
-                message: 'error',
-                reserve: false,
+                state: true,
+                message: '',
+                reserve: true,
                 //預約日及區段
                 reserveday: '7/1 09:00-10:00',
                 //預約號碼
@@ -108,8 +108,31 @@ const addreserve = function (key, day, region) {
         resolve(res);
     })
 };
-const clearreserve = function (key) {
 
+//取消預約
+const clearreserve = function (key) {
+    return new Promise(function (resolve, reject) {
+        // axios.get(`${store.getters.apipath}Login`)
+        //     .then(function(res){                    
+        //         resolve(res);
+        //     })
+        //     .catch(function (error) {
+        //         reject(error);
+        //     })
+
+        let res = {
+            data: {
+                state: true,
+                message: '',
+                reserve: false,
+                //預約日及區段
+                reserveday: '',
+                //預約號碼
+                reservenumber: null
+            }
+        }
+        resolve(res);
+    })
 };
 
 // const getT13=function(keyword){
@@ -136,4 +159,4 @@ const clearreserve = function (key) {
 //     })
 // }
 
-export { getloginuser, getdays, getregions,addreserve }
+export { getloginuser, getdays, getregions, addreserve, clearreserve }
