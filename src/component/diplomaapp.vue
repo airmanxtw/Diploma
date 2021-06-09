@@ -14,13 +14,15 @@
       <v-row>
         <v-col class="text-center">
           <loginbutton />
+          <reserve />
         </v-col>
       </v-row>
     </v-main>
   </v-app>
 </template>
 <script>
-import loginbutton from "component/loginbutton.vue";
+import loginbutton from "component/loginbutton";
+import reserve from "component/reserve";
 import { mapGetters } from "vuex";
 export default {
   computed: {
@@ -28,6 +30,7 @@ export default {
   },
   components: {
     loginbutton,
+    reserve,
   },
 };
 </script>

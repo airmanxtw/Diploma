@@ -17,6 +17,7 @@ const store = new Vuex.Store({
     loginuser: (state => state.loginuser),
     islogin: (state => state.loginuser.key.length > 0 ? true : false),
     username: (state => state.loginuser.username),
+    reserve:(state=>state.loginuser.reserve),
   },
   mutations: {
     setloginuser: ((state, user) => { state.loginuser = user }),

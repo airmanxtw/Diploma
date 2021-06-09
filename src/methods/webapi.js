@@ -23,11 +23,11 @@ const getloginuser = function (user) {
                     //webapi授權碼
                     key: '1234567',
                     //是否預約
-                    reserve: false,
+                    reserve: true,
                     //預約日及區段
-                    reserveday: '',
+                    reserveday: '7/1 09:00-10:00',
                     //預約號碼
-                    reservenumber: null
+                    reservenumber: 12345
                 }
             }
         }
