@@ -57,7 +57,7 @@ const getdays = function (key) {
 }
 
 //取得區段
-const getregons = function (day) {
+const getregions = function (day) {
     return new Promise(function (resolve, reject) {
         // axios.get(`${store.getters.apipath}Login`)
         //     .then(function(res){                    
@@ -107,4 +107,4 @@ const getregons = function (day) {
 //     })
 // }
 
-export { getloginuser, getdays, getregons }
+export { getloginuser, getdays, getregions }

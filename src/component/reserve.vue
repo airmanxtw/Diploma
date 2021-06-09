@@ -19,6 +19,14 @@
             clearable
             label="請選擇預約日期"
           ></v-select>
+          <v-select
+            :items="regions"
+            :rules="regionRules"
+            v-model="selectregions"
+            required
+            clearable
+            label="請選擇預約時段"
+          ></v-select>
           <v-btn @click="addreserve">預約</v-btn>
         </v-form>
       </div>
@@ -27,15 +35,17 @@
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { getdays } from "methods/webapi";
+import { getdays, getregions } from "methods/webapi";
 export default {
   data: () => {
     return {
       valid: false,
-      days: null,
+      days: [],
       selectdays: null,
-      regions: null,
+      regions: [],
+      selectregions: null,
       dayRules: [(v) => v != null || "請選擇日期"],
+      regionRules: [(v) => v != null || "請選擇時段"],
     };
   },
   computed: {
@@ -50,12 +60,17 @@ export default {
         });
       }
     },
+    selectdays: function (newval, oldval) {
+      getregions(newval).then((res) => {
+        this.regions = res.data;
+      });
+    },
   },
   methods: {
     addreserve: function () {
+      this.$refs.form.validate();
       if (this.valid) {
       }
-      this.$refs.form.validate();
     },
   },
 };
