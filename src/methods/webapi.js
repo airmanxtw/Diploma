@@ -69,9 +69,9 @@ const getregions = function (day) {
 
         let res = {
             data: [
-                { text: '09:00-10:00', value: 1, disabled: true },
-                { text: '10:00-11:00', value: 2, disabled: true },
-                { text: '11:00-12:00', value: 3, disabled: true },
+                { text: '09:00-10:00', value: 1, disabled: false },
+                { text: '10:00-11:00', value: 2, disabled: false },
+                { text: '11:00-12:00', value: 3, disabled: false },
                 { text: '14:00-15:00', value: 4, disabled: true },
                 { text: '15:00-16:00', value: 5, disabled: true },
                 { text: '16:00-17:00', value: 6, disabled: true },
@@ -82,6 +82,35 @@ const getregions = function (day) {
         resolve(res);
     })
 }
+
+//預約
+const addreserve = function (key, day, region) {
+    return new Promise(function (resolve, reject) {
+        // axios.get(`${store.getters.apipath}Login`)
+        //     .then(function(res){                    
+        //         resolve(res);
+        //     })
+        //     .catch(function (error) {
+        //         reject(error);
+        //     })
+
+        let res = {
+            data: {
+                state: false,
+                message: 'error',
+                reserve: false,
+                //預約日及區段
+                reserveday: '7/1 09:00-10:00',
+                //預約號碼
+                reservenumber: 12345
+            }
+        }
+        resolve(res);
+    })
+};
+const clearreserve = function (key) {
+
+};
 
 // const getT13=function(keyword){
 //     return new Promise(function (resolve, reject) {        
@@ -107,4 +136,4 @@ const getregions = function (day) {
 //     })
 // }
 
-export { getloginuser, getdays, getregions }
+export { getloginuser, getdays, getregions,addreserve }

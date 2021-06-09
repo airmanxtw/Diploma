@@ -10,7 +10,7 @@
         <v-btn>取消預約</v-btn>
       </div>
       <div v-else>
-        <v-form ref="form" v-model="valid" lazy-validation>
+        <v-form ref="form" v-model="valid">
           <v-select
             :items="days"
             :rules="dayRules"
@@ -27,15 +27,26 @@
             clearable
             label="請選擇預約時段"
           ></v-select>
-          <v-btn @click="addreserve">預約</v-btn>
+
+          <v-btn class="mb-7" @click="addreserve">預約</v-btn>
+
+          <v-snackbar bottom absolute v-model="snackbar" color="red text--white"
+            >{{ message }}
+            <template v-slot:action="{ attrs }">
+              <v-btn color="text--white" text v-bind="attrs" @click="snackbar = false">
+                關閉
+              </v-btn>
+            </template>
+          </v-snackbar>
         </v-form>
       </div>
     </v-card-text>
+    <v-card-actions> </v-card-actions>
   </v-card>
 </template>
 <script>
 import { mapGetters } from "vuex";
-import { getdays, getregions } from "methods/webapi";
+import { getdays, getregions, addreserve } from "methods/webapi";
 export default {
   data: () => {
     return {
@@ -44,6 +55,8 @@ export default {
       selectdays: null,
       regions: [],
       selectregions: null,
+      snackbar: false,
+      message: "",
       dayRules: [(v) => v != null || "請選擇日期"],
       regionRules: [(v) => v != null || "請選擇時段"],
     };
@@ -70,6 +83,15 @@ export default {
     addreserve: function () {
       this.$refs.form.validate();
       if (this.valid) {
+        addreserve(this.loginuser.key, this.selectdays, this.selectregions).then(
+          (res) => {
+            if (res.data.state) {
+            } else {
+              this.snackbar = true;
+              this.message = res.data.message;
+            }
+          }
+        );
       }
     },
   },
