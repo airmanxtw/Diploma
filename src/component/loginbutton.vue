@@ -27,7 +27,9 @@
             type="password"
           ></v-text-field>
         </v-form>
-        <v-snackbar absolute v-model="snackbar">snackbar</v-snackbar>
+        <v-snackbar absolute v-model="snackbar" color="red text--white">{{
+          message
+        }}</v-snackbar>
       </v-card-text>
 
       <v-divider></v-divider>
@@ -47,7 +49,8 @@ export default {
     return {
       dialog: false,
       valid: true,
-      snackbar: true,
+      snackbar: false,
+      message: "",
       user: {
         studno: "",
         password: "",
@@ -59,12 +62,13 @@ export default {
     ...mapMutations(["setloginuser"]),
     login: function () {
       if (this.valid) {
-        //let that=this;
-        getloginuser.then((res) => {
-          if (res.state) {
-            this.setloginuser(res.loginuser);
+        getloginuser(this.user).then((res) => {
+          if (res.data.state) {
+            this.setloginuser(res.data.loginuser);
             this.dialog = false;
           } else {
+            this.snackbar = true;
+            this.message = res.data.message;
           }
         });
       }
