@@ -1,37 +1,18 @@
 const axios = require("axios");
-//import store from "../plugins/vuex";
+
+const mock = require("methods/mocks");
+mock.setmock(axios);
 
 //取得登入資訊
 const getloginuser = function (user) {
     return new Promise(function (resolve, reject) {
-        // axios.get(`${store.getters.apipath}Login`)
-        //     .then(function(res){                    
-        //         resolve(res);
-        //     })
-        //     .catch(function (error) {
-        //         reject(error);
-        //     })
-
-        let res = {
-            data: {
-                state: true,
-                message: '',
-                loginuser: {
-                    //學號
-                    userid: user.studno,
-                    username: '顏大鈞',
-                    //webapi授權碼
-                    key: '1234567',
-                    //是否預約
-                    reserve: false,
-                    //預約日及區段
-                    reserveday: '7/1 09:00-10:00',
-                    //預約號碼
-                    reservenumber: 12345
-                }
-            }
-        }
-        resolve(res);
+        axios.post(`https://abc/login`, user)
+            .then(function (res) {
+                resolve(res);
+            })
+            .catch(function (error) {
+                reject(error);
+            })
     })
 }
 
