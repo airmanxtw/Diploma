@@ -4,7 +4,8 @@ const setmock = axios => {
     const mock = new MockAdapter(axios);
     mock.onPost("https://abc/login").reply((config) => {
         return [
-            200, {
+            200,
+            {
                 state: true,
                 message: '',
                 loginuser: {
