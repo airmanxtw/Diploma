@@ -7,9 +7,7 @@
     </v-app-bar>
     <v-main>
       <v-row>
-        <v-col>
-          <p class="mt-3">預約注意事項:.......</p>
-        </v-col>
+        <v-col> <p class="mt-3">預約注意事項:.......</p> </v-col>
       </v-row>
       <v-row>
         <v-col class="text-center">
