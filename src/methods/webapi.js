@@ -3,6 +3,26 @@ const axios = require("axios");
 const mock = require("methods/mocks");
 mock.setmock(axios);
 
+axios.interceptors.request.use(function (config) {
+    // Do something before request is sent
+    config.headers.get['header1'] = 'value';
+    debugger;
+    return config;
+}, function (error) {
+    // Do something with request error
+    return Promise.reject(error);
+});
+axios.interceptors.response.use(function (response) {
+    // Any status code that lie within the range of 2xx cause this function to trigger
+    // Do something with response data
+    debugger;
+    return response;
+}, function (error) {
+    // Any status codes that falls outside the range of 2xx cause this function to trigger
+    // Do something with response error
+    return Promise.reject(error);
+});
+
 //取得登入資訊
 const getloginuser = function (user) {
     return new Promise(function (resolve, reject) {
